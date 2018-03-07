@@ -164,7 +164,7 @@ ListNode<T>* LinkedList<T>::getNode(int index){
 		return current;
 	}
 
-	return false;
+	return NULL;
 }
 
 template<typename T>
@@ -199,7 +199,7 @@ bool LinkedList<T>::add(T _t){
 	ListNode<T> *tmp = new ListNode<T>();
 	tmp->data = _t;
 	tmp->next = NULL;
-	
+
 	if(root){
 		// Already have elements inserted
 		last->next = tmp;
@@ -226,10 +226,10 @@ bool LinkedList<T>::unshift(T _t){
 	tmp->next = root;
 	tmp->data = _t;
 	root = tmp;
-	
+
 	_size++;
 	isCached = false;
-	
+
 	return true;
 }
 
@@ -247,7 +247,7 @@ template<typename T>
 T LinkedList<T>::pop(){
 	if(_size <= 0)
 		return T();
-	
+
 	isCached = false;
 
 	if(_size >= 2){
@@ -299,7 +299,7 @@ T LinkedList<T>::remove(int index){
 
 	if(index == 0)
 		return shift();
-	
+
 	if (index == _size-1)
 	{
 		return pop();
@@ -333,14 +333,14 @@ template<typename T>
 void LinkedList<T>::sort(int (*cmp)(T &, T &)){
 	if(_size < 2) return; // trivial case;
 
-	for(;;) {	
+	for(;;) {
 
 		ListNode<T> **joinPoint = &root;
 
 		while(*joinPoint) {
 			ListNode<T> *a = *joinPoint;
 			ListNode<T> *a_end = findEndOfSortedString(a, cmp);
-	
+
 			if(!a_end->next	) {
 				if(joinPoint == &root) {
 					last = a_end;
@@ -364,12 +364,12 @@ void LinkedList<T>::sort(int (*cmp)(T &, T &)){
 				if(cmp(a->data, b->data) <= 0) {
 					*joinPoint = a;
 					joinPoint = &a->next;
-					a = a->next;	
+					a = a->next;
 				}
 				else {
 					*joinPoint = b;
 					joinPoint = &b->next;
-					b = b->next;	
+					b = b->next;
 				}
 			}
 
@@ -394,7 +394,7 @@ ListNode<T>* LinkedList<T>::findEndOfSortedString(ListNode<T> *p, int (*cmp)(T &
 	while(p->next && cmp(p->data, p->next->data) <= 0) {
 		p = p->next;
 	}
-	
+
 	return p;
 }
 
